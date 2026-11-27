@@ -15,6 +15,7 @@ import { useSettings } from '../../lib/settings/SettingsProvider'
 import type { Theme } from '../../lib/theme'
 import { ChildFormSheet } from '../child/ChildFormSheet'
 import { useActiveChild, useChildren } from '../child/hooks'
+import { BackupSection } from './BackupSection'
 
 // Без значков: на узком экране «Системная» иначе не помещается в треть переключателя.
 const THEME_OPTIONS: readonly SegmentOption<Theme>[] = [
@@ -33,6 +34,7 @@ export function SettingsPage() {
           <ThemePicker />
         </Card>
       </Section>
+      <BackupSection />
     </div>
   )
 }
