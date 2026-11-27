@@ -24,19 +24,22 @@
   --danger-soft: #fbe9ea;
   --focus: #b8435a;
 
-  /* Цвета разделов: -soft для фона значка, -strong для самого значка и подписи. */
+  /*
+   * Цвета разделов: -soft для фона значка, -strong для самого значка и подписи.
+   * -strong затемнены так, чтобы текст читался и на -soft, и на белом (контраст от 5:1).
+   */
   --cat-sleep-soft: #ece7fa;
-  --cat-sleep-strong: #6b5bb5;
+  --cat-sleep-strong: #5646a5;
   --cat-feeding-soft: #fdeada;
-  --cat-feeding-strong: #c2652e;
+  --cat-feeding-strong: #9a4f22;
   --cat-diaper-soft: #e1f0fb;
-  --cat-diaper-strong: #2e75b5;
+  --cat-diaper-strong: #1f5c96;
   --cat-growth-soft: #e2f4ea;
-  --cat-growth-strong: #2e8b5e;
+  --cat-growth-strong: #1f6f48;
   --cat-milestone-soft: #fdf3d2;
-  --cat-milestone-strong: #a97a0e;
+  --cat-milestone-strong: #85620a;
   --cat-reminder-soft: #fbe4e9;
-  --cat-reminder-strong: #c23a5a;
+  --cat-reminder-strong: #a82846;
 }
 
 .dark {

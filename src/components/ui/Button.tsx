@@ -2,7 +2,7 @@ import type { ComponentPropsWithRef } from 'react'
 import { cn } from '../../lib/cn'
 
 export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'soft'
-export type ButtonSize = 'sm' | 'md' | 'lg' | 'icon' | 'icon-sm'
+export type ButtonSize = 'sm' | 'md' | 'lg' | 'xl' | 'icon' | 'icon-sm'
 
 export type ButtonProps = ComponentPropsWithRef<'button'> & {
   variant?: ButtonVariant
@@ -24,6 +24,8 @@ const SIZES: Record<ButtonSize, string> = {
   sm: 'h-9 px-3 text-sm',
   md: 'h-11 px-4',
   lg: 'h-12 px-5',
+  // 64 px — для кнопок, по которым бьют одной рукой: быстрое добавление записи.
+  xl: 'h-16 px-4',
   icon: 'h-11 w-11',
   'icon-sm': 'h-9 w-9',
 }

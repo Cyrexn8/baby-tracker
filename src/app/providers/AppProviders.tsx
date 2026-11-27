@@ -12,6 +12,8 @@ function ThemedToaster() {
       position="top-center"
       closeButton
       toastOptions={{
+        // У кнопки-крестика иначе английская подпись для скринридеров.
+        closeButtonAriaLabel: 'Закрыть',
         // Не даём всплывающему сообщению закрыть шапку: внизу и так навигация.
         style: { marginTop: 'calc(env(safe-area-inset-top) + 12px)' },
       }}

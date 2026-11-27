@@ -49,7 +49,8 @@ export function SegmentedControl<T extends string>({
               )}
             >
               {Icon && <Icon className="h-4 w-4 shrink-0" aria-hidden="true" />}
-              <span className="truncate">{option.label}</span>
+              {/* Длинная подпись переносится на вторую строку, а не обрезается: «И то и другое» в третьей части экрана иначе не читается. */}
+              <span className="text-center leading-tight">{option.label}</span>
             </button>
           )
         })}

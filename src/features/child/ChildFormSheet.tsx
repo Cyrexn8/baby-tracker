@@ -14,7 +14,11 @@ export interface ChildFormSheetProps {
   onSaved?: (child: Child) => Promise<void> | void
 }
 
-/** Панель с формой ребёнка. Одинаково работает для добавления и изменения. */
+/**
+ * Панель с формой ребёнка. Одинаково работает для добавления и изменения.
+ *
+ * Форма живёт, только пока панель открыта: каждое открытие начинается с чистых значений.
+ */
 export function ChildFormSheet({ open, onClose, child, onSaved }: ChildFormSheetProps) {
   const handleSubmit = async (values: ChildFormValues) => {
     try {
@@ -30,19 +34,19 @@ export function ChildFormSheet({ open, onClose, child, onSaved }: ChildFormSheet
 
   return (
     <Sheet
-      // Ключ сбрасывает форму при переключении между детьми.
-      key={child?.id ?? 'new'}
       open={open}
       onClose={onClose}
       title={child ? 'Изменить ребёнка' : 'Новый ребёнок'}
       description="Имя и дата рождения нужны, чтобы считать возраст и итоги дня."
     >
-      <ChildForm
-        child={child}
-        onSubmit={handleSubmit}
-        submitLabel={child ? 'Сохранить' : 'Добавить'}
-        onCancel={onClose}
-      />
+      {open && (
+        <ChildForm
+          child={child}
+          onSubmit={handleSubmit}
+          submitLabel={child ? 'Сохранить' : 'Добавить'}
+          onCancel={onClose}
+        />
+      )}
     </Sheet>
   )
 }
