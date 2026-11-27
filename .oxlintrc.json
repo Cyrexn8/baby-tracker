@@ -1,0 +1,19 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["react", "jsx-a11y", "import", "typescript"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn"
+  },
+  "env": {
+    "browser": true,
+    "es2023": true
+  },
+  "ignorePatterns": ["dist", "dev-dist"],
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "react/incompatible-library": "off",
+    "import/no-unassigned-import": "off",
+    "eslint/no-underscore-dangle": "off"
+  }
+}

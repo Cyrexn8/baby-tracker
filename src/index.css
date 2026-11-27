@@ -1,0 +1,131 @@
+@import 'tailwindcss';
+
+/* Тёмная тема включается классом `dark` на <html> (см. src/lib/theme.ts). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Цвета приложения. Светлые значения — в :root, тёмные — в .dark.
+ * Классы Tailwind для них объявлены ниже в @theme: bg-surface, text-fg, text-primary и т. д.
+ */
+:root {
+  color-scheme: light;
+  --bg: #fbf6f1;
+  --surface: #ffffff;
+  --surface-muted: #f4ece6;
+  --line: #eadfd7;
+  --fg: #2f2833;
+  --fg-muted: #7a6f7b;
+  --primary: #d95d6e;
+  --primary-hover: #c44d5f;
+  --on-primary: #ffffff;
+  --primary-soft: #fbe6ea;
+  --accent: #b8435a;
+  --danger: #c2373f;
+  --danger-soft: #fbe9ea;
+  --focus: #b8435a;
+
+  /* Цвета разделов: -soft для фона значка, -strong для самого значка и подписи. */
+  --cat-sleep-soft: #ece7fa;
+  --cat-sleep-strong: #6b5bb5;
+  --cat-feeding-soft: #fdeada;
+  --cat-feeding-strong: #c2652e;
+  --cat-diaper-soft: #e1f0fb;
+  --cat-diaper-strong: #2e75b5;
+  --cat-growth-soft: #e2f4ea;
+  --cat-growth-strong: #2e8b5e;
+  --cat-milestone-soft: #fdf3d2;
+  --cat-milestone-strong: #a97a0e;
+  --cat-reminder-soft: #fbe4e9;
+  --cat-reminder-strong: #c23a5a;
+}
+
+.dark {
+  color-scheme: dark;
+  --bg: #17141a;
+  --surface: #221d26;
+  --surface-muted: #2c2530;
+  --line: #3a313f;
+  --fg: #f3eef5;
+  --fg-muted: #a79dae;
+  --primary: #d95d6e;
+  --primary-hover: #e0707f;
+  --on-primary: #ffffff;
+  --primary-soft: #3a2229;
+  --accent: #f2a0ac;
+  --danger: #f28b8f;
+  --danger-soft: #3a2225;
+  --focus: #f2a0ac;
+
+  --cat-sleep-soft: #2a2440;
+  --cat-sleep-strong: #b9acf6;
+  --cat-feeding-soft: #3a291d;
+  --cat-feeding-strong: #f0a878;
+  --cat-diaper-soft: #1d2e40;
+  --cat-diaper-strong: #8cc2f2;
+  --cat-growth-soft: #1d3529;
+  --cat-growth-strong: #86d4ae;
+  --cat-milestone-soft: #38301a;
+  --cat-milestone-strong: #e8c266;
+  --cat-reminder-soft: #3d222a;
+  --cat-reminder-strong: #f39aab;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-line: var(--line);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-on-primary: var(--on-primary);
+  --color-primary-soft: var(--primary-soft);
+  --color-accent: var(--accent);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-focus: var(--focus);
+
+  --color-cat-sleep: var(--cat-sleep-strong);
+  --color-cat-sleep-soft: var(--cat-sleep-soft);
+  --color-cat-feeding: var(--cat-feeding-strong);
+  --color-cat-feeding-soft: var(--cat-feeding-soft);
+  --color-cat-diaper: var(--cat-diaper-strong);
+  --color-cat-diaper-soft: var(--cat-diaper-soft);
+  --color-cat-growth: var(--cat-growth-strong);
+  --color-cat-growth-soft: var(--cat-growth-soft);
+  --color-cat-milestone: var(--cat-milestone-strong);
+  --color-cat-milestone-soft: var(--cat-milestone-soft);
+  --color-cat-reminder: var(--cat-reminder-strong);
+  --color-cat-reminder-soft: var(--cat-reminder-soft);
+
+  --font-sans:
+    ui-rounded, 'SF Pro Rounded', 'Segoe UI Variable Display', 'Segoe UI', system-ui, -apple-system,
+    'Helvetica Neue', Arial, sans-serif;
+}
+
+@layer base {
+  html {
+    theme-color: var(--bg);
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-bg font-sans text-fg antialiased;
+    min-height: 100dvh;
+    overscroll-behavior-y: none;
+  }
+
+  /* Поля не меньше 16 px: иначе iOS приближает страницу при фокусе. */
+  input,
+  select,
+  textarea,
+  button {
+    font-size: 1rem;
+  }
+
+  ::selection {
+    background: var(--primary-soft);
+  }
+}

@@ -1,0 +1,30 @@
+# dependencies
+node_modules
+
+# build output
+dist
+dist-ssr
+dev-dist
+*.local
+
+# typescript build info
+*.tsbuildinfo
+
+# editor and OS
+.vscode/*
+!.vscode/extensions.json
+.idea
+.zcode
+.playwright-mcp
+.DS_Store
+Thumbs.db
+
+# env
+.env
+.env.*
+!.env.example
+
+# logs
+logs
+*.log
+npm-debug.log*
