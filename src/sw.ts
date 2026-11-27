@@ -12,6 +12,7 @@
 import { cleanupOutdatedCaches, createHandlerBoundToURL, precacheAndRoute } from 'workbox-precaching'
 import { NavigationRoute, registerRoute } from 'workbox-routing'
 import { clientsClaim } from 'workbox-core'
+import { BASE_URL } from './lib/base'
 
 declare let self: ServiceWorkerGlobalScope & {
   __WB_MANIFEST: Array<{ url: string; revision: string | null }>
@@ -40,8 +41,9 @@ interface PushPayload {
   url?: string
 }
 
-const NOTIFICATION_ICON = '/icons/icon-192.png'
-const REMINDERS_PATH = '/reminders'
+// Пути внутри приложения зависят от адреса публикации (см. src/lib/base.ts).
+const NOTIFICATION_ICON = `${BASE_URL}icons/icon-192.png`
+const REMINDERS_PATH = `${BASE_URL}reminders`
 
 self.addEventListener('push', (event) => {
   const payload = readPushPayload(event)

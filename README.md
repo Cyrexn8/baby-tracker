@@ -33,6 +33,18 @@
 
 Нужен Node.js 26 или новее. Менеджер пакетов — npm.
 
+## Публикация
+
+Каждый пуш в `main` собирается и публикуется в GitHub Pages workflow
+`.github/workflows/deploy.yml`: https://cyrexn8.github.io/baby-tracker/
+
+- Включить один раз: Settings → Pages → Source → GitHub Actions.
+- Адрес задаёт переменная `BASE_PATH` в workflow (`/baby-tracker`); локально приложение
+  живёт в корне — base, манифест PWA и роутер подстраиваются автоматически (`vite.config.ts`).
+- GitHub Pages не умеет SPA-fallback, поэтому workflow добавляет в сборку `404.html`
+  (`scripts/generate-404.mjs`): прямой заход по адресу страницы возвращает пользователя
+  в приложение.
+
 ## Структура
 
 ```

@@ -1,6 +1,7 @@
 import { Link } from 'react-router'
 import { Settings } from 'lucide-react'
 import { buttonStyles } from '../../components/ui/Button'
+import { withBase } from '../../lib/base'
 import { cn } from '../../lib/cn'
 import { ROUTES } from '../nav'
 import { ChildSwitcher } from '../../features/child/ChildSwitcher'
@@ -17,7 +18,7 @@ export interface BrandProps {
 export function Brand({ nameClassName }: BrandProps = {}) {
   return (
     <span className="flex items-center gap-2">
-      <img src="/icons/icon.svg" alt="" className="h-8 w-8 rounded-lg" />
+      <img src={withBase('icons/icon.svg')} alt="" className="h-8 w-8 rounded-lg" />
       <span className={cn('text-lg font-bold tracking-tight', nameClassName)}>Baby Tracker</span>
     </span>
   )

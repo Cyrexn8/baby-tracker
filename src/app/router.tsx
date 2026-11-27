@@ -24,23 +24,29 @@ function MilestonesPageRoute() {
   return <MilestonesPage childId={child?.id ?? null} birthDate={child?.birthDate ?? null} />
 }
 
-export const router = createBrowserRouter([
-  {
-    errorElement: <ErrorPage />,
-    children: [
-      { path: ROUTES.welcome, element: <OnboardingPage /> },
-      {
-        element: <AppLayout />,
-        children: [
-          { path: ROUTES.today, element: <TodayPage /> },
-          { path: ROUTES.history, element: <HistoryPage /> },
-          { path: ROUTES.growth, element: <GrowthPageRoute /> },
-          { path: ROUTES.milestones, element: <MilestonesPageRoute /> },
-          { path: ROUTES.reminders, element: <RemindersPage /> },          { path: ROUTES.settings, element: <SettingsPage /> },
-        ],
-      },
-      // Неизвестный адрес ведёт на главную.
-      { path: '*', element: <Navigate to={ROUTES.today} replace /> },
-    ],
-  },
-])
+export const router = createBrowserRouter(
+  [
+    {
+      errorElement: <ErrorPage />,
+      children: [
+        { path: ROUTES.welcome, element: <OnboardingPage /> },
+        {
+          element: <AppLayout />,
+          children: [
+            { path: ROUTES.today, element: <TodayPage /> },
+            { path: ROUTES.history, element: <HistoryPage /> },
+            { path: ROUTES.growth, element: <GrowthPageRoute /> },
+            { path: ROUTES.milestones, element: <MilestonesPageRoute /> },
+            { path: ROUTES.reminders, element: <RemindersPage /> },
+            { path: ROUTES.settings, element: <SettingsPage /> },
+          ],
+        },
+        // Неизвестный адрес ведёт на главную.
+        { path: '*', element: <Navigate to={ROUTES.today} replace /> },
+      ],
+    },
+  ],
+  // Публикация может жить в подпутии (GitHub Pages): base задаётся в vite.config.ts
+  // и приходит сюда через BASE_URL. Локально это '/' — поведение не меняется.
+  { basename: import.meta.env.BASE_URL },
+)

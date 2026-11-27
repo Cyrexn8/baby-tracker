@@ -1,0 +1,51 @@
+# Публикация на GitHub Pages при каждом пуше в main (и вручную через workflow_dispatch).
+# Адрес приложения: https://cyrexn8.github.io/baby-tracker/
+# Включается один раз в настройках репозитория: Settings → Pages → Source → GitHub Actions.
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 26
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+        env:
+          # Подпатий проекта на github.io. Из него в vite.config.ts собираются base,
+          # манифест PWA и basename роутера. На тесты не влияет: шаг выше идёт без него.
+          BASE_PATH: /baby-tracker
+      - run: node scripts/generate-404.mjs dist "$BASE_PATH"
+        env:
+          BASE_PATH: /baby-tracker
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

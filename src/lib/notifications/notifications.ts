@@ -6,6 +6,8 @@
  * заготовка обработчика лежит в src/sw.ts.
  */
 
+import { BASE_URL, withBase } from '../base'
+
 export type NotificationSupport = NotificationPermission | 'unsupported'
 
 export interface LocalNotification {
@@ -17,7 +19,7 @@ export interface LocalNotification {
   tag?: string
 }
 
-const ICON = '/icons/icon-192.png'
+const ICON = withBase('icons/icon-192.png')
 
 export function notificationSupport(): NotificationSupport {
   if (typeof Notification === 'undefined') return 'unsupported'
@@ -39,17 +41,21 @@ export async function requestNotificationPermission(): Promise<NotificationSuppo
 export async function showLocalNotification(notification: LocalNotification): Promise<boolean> {
   if (notificationSupport() !== 'granted') return false
 
+  // Адрес публикации учитываем здесь: service worker (sw.ts) и прямой переход по клику
+  // получают готовый путь — под подпутём GitHub Pages иначе попали бы на корень сайта.
+  const url = notification.url ? withBase(notification.url) : BASE_URL
+
   const options = {
     body: notification.body,
     icon: ICON,
     tag: notification.tag,
-    data: { url: notification.url ?? '/' },
+    data: { url },
   }
 
   try {
     // Через service worker уведомление переживает перезагрузку вкладки и корректно обрабатывает клик.
     if (typeof navigator !== 'undefined' && 'serviceWorker' in navigator) {
-      const registration = await navigator.serviceWorker.getRegistration('/')
+      const registration = await navigator.serviceWorker.getRegistration(BASE_URL)
       if (registration) {
         await registration.showNotification(notification.title, options)
         return true
@@ -57,14 +63,14 @@ export async function showLocalNotification(notification: LocalNotification): Pr
     }
     if (typeof Notification === 'undefined') return false
     const systemNotification = new Notification(notification.title, options)
-    systemNotification.onclick = () => openUrl(notification.url)
+    systemNotification.onclick = () => openUrl(url)
     return true
   } catch {
     return false
   }
 }
 
-function openUrl(url: string | undefined): void {
+function openUrl(url: string): void {
   window.focus()
-  if (url) window.location.assign(url)
+  window.location.assign(url)
 }

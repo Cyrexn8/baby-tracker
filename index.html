@@ -17,6 +17,23 @@
     <meta name="apple-mobile-web-app-title" content="Baby Tracker" />
     <meta name="theme-color" content="#fbf6f1" />
     <script>
+      // GitHub Pages не умеет SPA-fallback: прямой заход по адресу вроде /baby-tracker/history
+      // попадает на 404.html (scripts/generate-404.mjs), тот запоминает путь и перебрасывает
+      // в корень приложения. Здесь путь восстанавливается без перезагрузки. В остальных
+      // окружениях ключа в sessionStorage нет — скрипт ничего не делает.
+      ;(function () {
+        try {
+          var redirect = sessionStorage.getItem('bt.spaRedirect')
+          if (redirect) {
+            sessionStorage.removeItem('bt.spaRedirect')
+            history.replaceState(null, '', redirect)
+          }
+        } catch (error) {
+          /* sessionStorage недоступен — откроется корень приложения */
+        }
+      })()
+    </script>
+    <script>
       // Применяем тему до первой отрисовки, иначе при тёмной теме мигает светлый фон.
       // Ключ должен совпадать с THEME_STORAGE_KEY в src/lib/theme.ts.
       ;(function () {
